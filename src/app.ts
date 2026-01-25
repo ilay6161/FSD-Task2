@@ -3,10 +3,22 @@ import authRoutes from './routes/authRoute';
 import userRoutes from './routes/userRoute';
 import postRoutes from './routes/postRoutes';
 import commentRoutes from './routes/commentRoutes';
+import { swaggerUi, swaggerSpec } from './swagger';
 
 const app = express();
 
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Task 2 - API Documentation'
+}));
+
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 app.use('/auth', authRoutes);
 
