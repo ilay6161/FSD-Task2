@@ -44,3 +44,37 @@ const getUserById = async (req: AuthRequest, res: Response) => {
     sendError(500, err.message || "Error fetching user", res);
   }
 };
+
+const updateUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.params.id as string;
+    const { username, email } = req.body;
+
+    if (!req.user?._id) {
+      return sendError(401, "Unauthorized", res);
+    }
+
+    if (!Types.ObjectId.isValid(userId)) {
+      return sendError(400, "Invalid user ID format", res);
+    }
+
+    if (req.user._id.toString() !== userId) {
+      return sendError(403, "Forbidden: cannot update another user's profile", res);
+    }
+
+    const user = await doesUserExist(userId, res);
+    if (!user) {
+      return;
+    }
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+
+    await user.save();
+
+    const { password, refreshTokens, ...userResponse } = user.toObject();
+    res.status(200).json(userResponse);
+  } catch (err: any) {
+    sendError(500, err.message || "Error updating user", res);
+  }
+};
