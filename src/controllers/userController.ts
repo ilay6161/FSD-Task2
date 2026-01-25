@@ -102,3 +102,10 @@ const deleteUser = async (req: AuthRequest, res: Response) => {
     sendError(500, err.message || "Error deleting user", res);
   }
 };
+
+export default {
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+};
