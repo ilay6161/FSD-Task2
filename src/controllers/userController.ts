@@ -78,3 +78,27 @@ const updateUser = async (req: AuthRequest, res: Response) => {
     sendError(500, err.message || "Error updating user", res);
   }
 };
+
+const deleteUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.params.id as string;
+
+    if (!req.user?._id) {
+      return sendError(401, "Unauthorized", res);
+    }
+
+    if (req.user._id.toString() !== userId) {
+      return sendError(403, "Forbidden: cannot delete another user's account", res);
+    }
+
+    const user = await doesUserExist(userId, res);
+    if (!user) {
+      return;
+    }
+
+    await user.deleteOne();
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err: any) {
+    sendError(500, err.message || "Error deleting user", res);
+  }
+};
