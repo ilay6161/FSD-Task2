@@ -1,0 +1,32 @@
+{
+  "name": "fsd-task2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node --env-file=.env ./dist/server.js",
+    "dev": "nodemon ./src/server.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilay6161/FSD-Task2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilay6161/FSD-Task2/issues"
+  },
+  "homepage": "https://github.com/ilay6161/FSD-Task2",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,54 @@
+### Add Post
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+  "title": "ilay2",
+  "content": "bla bla2",
+  "senderId": "1234"
+}
+
+### Get All Posts
+GET http://localhost:3000/post
+
+### Get Post by ID
+GET http://localhost:3000/post/697687c99121814791d65f42
+
+### Get Posts by Sender
+GET http://localhost:3000/post?sender=1234
+
+### Update Post
+PUT http://localhost:3000/post/697687c99121814791d65f42
+Content-Type: application/json
+
+{
+  "title": "Updated Title1",
+  "content": "Updated Content1"
+}
+
+### Add Comment
+POST http://localhost:3000/comment
+Content-Type: application/json
+
+{
+  "postId": "697687c99121814791d65f42",
+  "content": "Great post!",
+  "senderId": "1234"
+}
+
+### Get All Comments
+GET http://localhost:3000/comment
+
+### Get Comments for Post
+GET http://localhost:3000/comment/post/697687c99121814791d65f42
+
+### Update Comment
+PUT http://localhost:3000/comment/697687ee9121814791d65f49
+Content-Type: application/json
+
+{
+  "content": "Updated comment2"
+}
+
+### Delete Comment
+DELETE http://localhost:3000/comment/697687ee9121814791d65f49
