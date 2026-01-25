@@ -29,3 +29,18 @@ const getAllUsers = async (_req: AuthRequest, res: Response) => {
     sendError(500, err.message || "Error fetching users", res);
   }
 };
+
+const getUserById = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.params.id as string;
+    const user = await doesUserExist(userId, res);
+    if (!user) {
+      return;
+    }
+
+    const { password, refreshTokens, ...userResponse } = user.toObject();
+    res.status(200).json(userResponse);
+  } catch (err: any) {
+    sendError(500, err.message || "Error fetching user", res);
+  }
+};
