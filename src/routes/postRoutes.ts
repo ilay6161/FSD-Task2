@@ -1,16 +1,17 @@
-import { Router } from "express";
-import {
-  addPost,
-  getPosts,
-  getPostById,
-  updatePost,
-} from "../controllers/postController";
+import express from "express";
+import postController from "../controllers/postController";
+import { authenticate } from "../middlewares/authMiddleware";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/", addPost);
-router.get("/", getPosts);
-router.get("/:id", getPostById);
-router.put("/:id", updatePost);
+router.post("/", authenticate, postController.addPost);
+
+router.get("/", authenticate, postController.getPosts);
+
+router.get("/:id", authenticate, postController.getPostById);
+
+router.put("/:id", authenticate, postController.updatePost);
+
+router.delete("/:id", authenticate, postController.deletePost);
 
 export default router;
