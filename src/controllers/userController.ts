@@ -21,7 +21,7 @@ const doesUserExist = async (userId: string, res: Response) => {
   return user;
 };
 
-const getAllUsers = async (_req: AuthRequest, res: Response) => {
+const getAllUsers = async (req: AuthRequest, res: Response) => {
   try {
     const users = await User.find().select("-password -refreshTokens");
     res.status(200).json(users);
