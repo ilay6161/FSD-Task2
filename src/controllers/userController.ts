@@ -1,0 +1,31 @@
+import { Response } from "express";
+import User from "../model/userModel";
+import { AuthRequest } from "../middlewares/authMiddleware";
+import { Types } from "mongoose";
+
+const sendError = (code: number, message: string, res: Response) => {
+  return res.status(code).json({ message });
+};
+
+const doesUserExist = async (userId: string, res: Response) => {
+  if (!Types.ObjectId.isValid(userId)) {
+    sendError(400, "Invalid user ID format", res);
+    return null;
+  }
+
+  const user = await User.findById(new Types.ObjectId(userId));
+  if (!user) {
+    sendError(404, `User with ID "${userId}" does not exist`, res);
+    return null;
+  }
+  return user;
+};
+
+const getAllUsers = async (_req: AuthRequest, res: Response) => {
+  try {
+    const users = await User.find().select("-password -refreshTokens");
+    res.status(200).json(users);
+  } catch (err: any) {
+    sendError(500, err.message || "Error fetching users", res);
+  }
+};
