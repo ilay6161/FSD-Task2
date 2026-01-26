@@ -87,10 +87,6 @@ const deleteUser = async (req: AuthRequest, res: Response) => {
       return sendError(401, "Unauthorized", res);
     }
 
-    if (req.user._id.toString() !== userId) {
-      return sendError(403, "Forbidden: cannot delete another user's account", res);
-    }
-
     const user = await doesUserExist(userId, res);
     if (!user) {
       return;
