@@ -1,7 +1,6 @@
 import { Response } from "express";
 import Comment from "../model/commentModel";
 import Post from "../model/postModel";
-import User from "../model/userModel";
 import { AuthRequest } from "../middlewares/authMiddleware";
 import { Types } from "mongoose";
 
