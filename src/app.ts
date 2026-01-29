@@ -1,13 +1,14 @@
 import express from 'express';
 import authRoutes from './routes/authRoute';
+import postRoutes from './routes/postRoute';
+import commentRoutes from './routes/commentRoute';
 import userRoutes from './routes/userRoute';
-import postRoutes from './routes/postRoutes';
-import commentRoutes from './routes/commentRoutes';
 import { swaggerUi, swaggerSpec } from './swagger';
 
 const app = express();
 
 app.use(express.json());
+
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   explorer: true,
@@ -21,11 +22,8 @@ app.get('/api-docs.json', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-
 app.use('/user', userRoutes);
-
 app.use('/post', postRoutes);
-
 app.use('/comment', commentRoutes);
 
 export default app;

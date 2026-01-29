@@ -58,10 +58,6 @@ const updateUser = async (req: AuthRequest, res: Response) => {
       return sendError(400, "Invalid user ID format", res);
     }
 
-    if (req.user._id.toString() !== userId) {
-      return sendError(403, "Forbidden: cannot update another user's profile", res);
-    }
-
     const user = await doesUserExist(userId, res);
     if (!user) {
       return;
@@ -85,10 +81,6 @@ const deleteUser = async (req: AuthRequest, res: Response) => {
 
     if (!req.user?._id) {
       return sendError(401, "Unauthorized", res);
-    }
-
-    if (req.user._id.toString() !== userId) {
-      return sendError(403, "Forbidden: cannot delete another user's account", res);
     }
 
     const user = await doesUserExist(userId, res);
